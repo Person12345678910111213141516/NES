@@ -1,21 +1,43 @@
-from editor import EditorState, get_display_lines, highlight_python
+from editor import (
+    EditorState,
+    get_display_lines,
+    highlight_python,
+    highlight_c_cpp,
+    highlight_java,
+    highlight_javascript,
+    highlight_csharp,
+)
 from commands import handle_input
 
 current_filename = None
 
-def is_python_file(filename):
-    return filename is not None and filename.lower().endswith('.py')
+def get_highlighter(filename):
+    if filename is None:
+        return None
+    ext = filename.lower()
+    if ext.endswith('.py'):
+        return highlight_python
+    elif ext.endswith(('.c', '.cpp', '.h', '.hpp')):
+        return highlight_c_cpp
+    elif ext.endswith('.java'):
+        return highlight_java
+    elif ext.endswith(('.js', '.jsx')):
+        return highlight_javascript
+    elif ext.endswith(('.cs',)):
+        return highlight_csharp
+    else:
+        return None
 
 def iterate(state):
     display_lines = get_display_lines()
+    highlighter = get_highlighter(getattr(state, "current_filename", None))
     for i in range(display_lines):
         index = state.linen + i
         if index < 0 or index >= len(state.input_lines):
             print(f"{state.nums}{state.linen + i}{state.colours.reset} {state.other} {state.colours.reset}")
         else:
-            # Use syntax highlighting for Python files
-            if is_python_file(getattr(state, "current_filename", None)):
-                line = highlight_python(state.input_lines[index], state)
+            if highlighter:
+                line = highlighter(state.input_lines[index], state)
             else:
                 line = f"{state.other}{state.input_lines[index]}{state.colours.reset}"
             print(f"{state.nums}{state.linen + i}{state.colours.reset} {line}")

@@ -69,6 +69,123 @@ def highlight_python(line, state):
 
     return line
 
+def highlight_c_cpp(line, state):
+    # C/C++: numbers/booleans (Title1), strings/classes (Title2), keywords (Number), rest (Other)
+    keywords = r'\b(?:int|float|double|char|void|if|else|for|while|do|switch|case|break|continue|return|struct|union|enum|typedef|const|static|extern|sizeof|volatile|register|goto|signed|unsigned|short|long|default|auto|inline|restrict|_Bool|_Complex|_Imaginary|class|public|private|protected|virtual|template|typename|namespace|using|try|catch|throw|new|delete|this|operator|friend|explicit|mutable|nullptr|true|false)\b'
+    bools = r'\b(?:true|false)\b'
+    numbers = r'\b\d+(\.\d+)?([eE][+-]?\d+)?\b'
+    strings = r'(\'(?:\\.|[^\\\'])*\'|"(?:\\.|[^\\"])*")'
+    classes = r'\bclass\s+(\w+)'
+
+    def string_repl(m):
+        return f"{state.title2}{m.group(0)}{state.colours.reset}"
+    line = re.sub(strings, string_repl, line)
+
+    def class_repl(m):
+        return f"class {state.title2}{m.group(1)}{state.colours.reset}"
+    line = re.sub(classes, class_repl, line)
+
+    def number_repl(m):
+        return f"{state.title1}{m.group(0)}{state.colours.reset}"
+    line = re.sub(numbers, number_repl, line)
+
+    def bool_repl(m):
+        return f"{state.title1}{m.group(0)}{state.colours.reset}"
+    line = re.sub(bools, bool_repl, line)
+
+    def keyword_repl(m):
+        return f"{state.nums}{m.group(0)}{state.colours.reset}"
+    line = re.sub(keywords, keyword_repl, line)
+
+    return line
+
+def highlight_java(line, state):
+    keywords = r'\b(?:abstract|assert|boolean|break|byte|case|catch|char|class|const|continue|default|do|double|else|enum|extends|final|finally|float|for|goto|if|implements|import|instanceof|int|interface|long|native|new|null|package|private|protected|public|return|short|static|strictfp|super|switch|synchronized|this|throw|throws|transient|try|void|volatile|while|true|false)\b'
+    bools = r'\b(?:true|false|null)\b'
+    numbers = r'\b\d+(\.\d+)?([eE][+-]?\d+)?\b'
+    strings = r'(\'(?:\\.|[^\\\'])*\'|"(?:\\.|[^\\"])*")'
+    classes = r'\bclass\s+(\w+)'
+
+    def string_repl(m):
+        return f"{state.title2}{m.group(0)}{state.colours.reset}"
+    line = re.sub(strings, string_repl, line)
+
+    def class_repl(m):
+        return f"class {state.title2}{m.group(1)}{state.colours.reset}"
+    line = re.sub(classes, class_repl, line)
+
+    def number_repl(m):
+        return f"{state.title1}{m.group(0)}{state.colours.reset}"
+    line = re.sub(numbers, number_repl, line)
+
+    def bool_repl(m):
+        return f"{state.title1}{m.group(0)}{state.colours.reset}"
+    line = re.sub(bools, bool_repl, line)
+
+    def keyword_repl(m):
+        return f"{state.nums}{m.group(0)}{state.colours.reset}"
+    line = re.sub(keywords, keyword_repl, line)
+
+    return line
+
+def highlight_javascript(line, state):
+    keywords = r'\b(?:break|case|catch|class|const|continue|debugger|default|delete|do|else|export|extends|finally|for|function|if|import|in|instanceof|let|new|null|return|super|switch|this|throw|try|typeof|var|void|while|with|yield|true|false)\b'
+    bools = r'\b(?:true|false|null|undefined|NaN|Infinity)\b'
+    numbers = r'\b\d+(\.\d+)?([eE][+-]?\d+)?\b'
+    strings = r'(\'(?:\\.|[^\\\'])*\'|"(?:\\.|[^\\"])*"|`(?:\\.|[^\\`])*`)'
+    classes = r'\bclass\s+(\w+)'
+
+    def string_repl(m):
+        return f"{state.title2}{m.group(0)}{state.colours.reset}"
+    line = re.sub(strings, string_repl, line)
+
+    def class_repl(m):
+        return f"class {state.title2}{m.group(1)}{state.colours.reset}"
+    line = re.sub(classes, class_repl, line)
+
+    def number_repl(m):
+        return f"{state.title1}{m.group(0)}{state.colours.reset}"
+    line = re.sub(numbers, number_repl, line)
+
+    def bool_repl(m):
+        return f"{state.title1}{m.group(0)}{state.colours.reset}"
+    line = re.sub(bools, bool_repl, line)
+
+    def keyword_repl(m):
+        return f"{state.nums}{m.group(0)}{state.colours.reset}"
+    line = re.sub(keywords, keyword_repl, line)
+
+    return line
+
+def highlight_csharp(line, state):
+    keywords = r'\b(?:abstract|as|base|bool|break|byte|case|catch|char|checked|class|const|continue|decimal|default|delegate|do|double|else|enum|event|explicit|extern|false|finally|fixed|float|for|foreach|goto|if|implicit|in|int|interface|internal|is|lock|long|namespace|new|null|object|operator|out|override|params|private|protected|public|readonly|ref|return|sbyte|sealed|short|sizeof|stackalloc|static|string|struct|switch|this|throw|true|try|typeof|uint|ulong|unchecked|unsafe|ushort|using|virtual|void|volatile|while)\b'
+    bools = r'\b(?:true|false|null)\b'
+    numbers = r'\b\d+(\.\d+)?([eE][+-]?\d+)?\b'
+    strings = r'(\'(?:\\.|[^\\\'])*\'|"(?:\\.|[^\\"])*")'
+    classes = r'\bclass\s+(\w+)'
+
+    def string_repl(m):
+        return f"{state.title2}{m.group(0)}{state.colours.reset}"
+    line = re.sub(strings, string_repl, line)
+
+    def class_repl(m):
+        return f"class {state.title2}{m.group(1)}{state.colours.reset}"
+    line = re.sub(classes, class_repl, line)
+
+    def number_repl(m):
+        return f"{state.title1}{m.group(0)}{state.colours.reset}"
+    line = re.sub(numbers, number_repl, line)
+
+    def bool_repl(m):
+        return f"{state.title1}{m.group(0)}{state.colours.reset}"
+    line = re.sub(bools, bool_repl, line)
+
+    def keyword_repl(m):
+        return f"{state.nums}{m.group(0)}{state.colours.reset}"
+    line = re.sub(keywords, keyword_repl, line)
+
+    return line
+
 def handle_insert_above(state, arg):
     line_number = int(arg) - 1
     if 0 < line_number < MAX_LINES:
