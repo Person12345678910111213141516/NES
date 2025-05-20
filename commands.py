@@ -82,7 +82,7 @@ def handle_input(state, data):
         state.current_filename = arg  # <-- Set the filename for syntax highlighting
     elif command == 'setCursor':
         if arg.isdecimal():
-            state.linen = max(0, int(arg) - 1)
+            state.linen = max(0, int(arg))
     elif command == 'saveAs':
         handle_save_as(state, arg)
     elif command == 'findText':
